@@ -32,18 +32,19 @@ class Director(arcade.View):
             self.sprites['players'].append(player)
 
         for i in range(0, 6401, 64):
-            if i not in range(500, 1100):  
+            if i not in range(500, 1150):  
                 wall = Walls(i, 94)
                 self.sprites['walls'].append(wall)
         wall = Walls(600, 250)
         self.sprites['walls'].append(wall)
+        wall = Walls(800, 375)
+        self.sprites['walls'].append(wall)
         
-        for i in range(600, 6401, 1000):
+        for i in range(1000, 6401, 1000):
             enemy = Enemy(i, 170)
             self.sprites['enemies'].append(enemy)
 
         for i in self.sprites['players']:
-            # self.physics_engine = arcade.PhysicsEnginePlatformer(i, gravity_constant=1, walls=self.sprites['walls'])
             self.physics_engines.append(arcade.PhysicsEnginePlatformer(i, gravity_constant=1, walls=self.sprites['walls']))
         
         if len(self.base) != 0:
@@ -91,22 +92,8 @@ class Director(arcade.View):
                             player.change_x = -5
             elif move == 'left':
                 player.change_x = -5
-    
-    # def find_move(self, move, id, player):
-    #     if move == 'right':
-    #         player.change_x = 5
-    #     elif move == 'jump':
-    #         if self.physics_engines[id].can_jump():
-    #             player.change_y = 13
-    #         num = random.randint(1, 2)
-    #         if num == 1:
-    #             player.change_x = 5
-    #         elif num == 2:
-    #             num = random.randint(1, 3)
-    #             if num != 1:
-    #                 player.change_x = -5
-    #     elif move == 'left':
-    #         player.change_x = -5
+            if len(self.moves) == 0:
+                move = None
     
     def center_camera_to_player(self):
         try:
@@ -148,12 +135,8 @@ class Director(arcade.View):
             self.setup()
 
     def new_gen(self):
-        # max = -100
         self.dead.sort(key=lambda x:x[1])
-        # for i in self.dead:
-        #     if i[1] > max:
-        #         max = i[1]
         return self.dead.pop()[0]
-        # self.setup(self.dead[0])
+        
         
 

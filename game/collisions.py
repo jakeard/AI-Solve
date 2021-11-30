@@ -22,7 +22,7 @@ class Collisions:
     
     def check_fall(self, dead):
         for player in self.players:
-            if player.center_x < 50:
+            if player.center_y < 50:
                 moves, location = player.store_info()
                 self.players.remove(player)
                 dead.append((moves, location))
