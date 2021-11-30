@@ -32,9 +32,11 @@ class Director(arcade.View):
             self.sprites['players'].append(player)
 
         for i in range(0, 6401, 64):
-            if i not in range(500, 700):  
+            if i not in range(500, 1100):  
                 wall = Walls(i, 94)
                 self.sprites['walls'].append(wall)
+        wall = Walls(600, 250)
+        self.sprites['walls'].append(wall)
         
         for i in range(600, 6401, 1000):
             enemy = Enemy(i, 170)
@@ -48,7 +50,7 @@ class Director(arcade.View):
             self.base.reverse()
             self.moves = self.base
         
-        arcade.set_background_color(arcade.color.KHAKI)
+        arcade.set_background_color(arcade.color.SKY_BLUE)
     
     def on_draw(self):
         arcade.start_render()
