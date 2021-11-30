@@ -27,15 +27,16 @@ class Director(arcade.View):
         for key in self.sprites:
             self.sprites[key] = arcade.SpriteList()
         
-        for i in range(1):
-            player = Player(100, 200, i, self.base)
+        for i in range(5):
+            player = Player(100, 200, i)
             self.sprites['players'].append(player)
 
         for i in range(0, 6401, 64):
-            wall = Walls(i, 94)
-            self.sprites['walls'].append(wall)
+            if i not in range(500, 700):  
+                wall = Walls(i, 94)
+                self.sprites['walls'].append(wall)
         
-        for i in range(600, 6401, 500):
+        for i in range(600, 6401, 1000):
             enemy = Enemy(i, 170)
             self.sprites['enemies'].append(enemy)
 
@@ -60,12 +61,20 @@ class Director(arcade.View):
     
     def move(self):
         move = None
+        location = None
         if len(self.moves) != 0:
-                move = self.moves.pop()
+            info = self.moves.pop()
+            move = info[0]
+            location = info[1]
         for player in self.sprites['players']:
             if move is None:
                 move = player.give_input()
+            else:
+                player.add_move_list(move)
             id = player.get_id()
+            if location is not None:
+                if player.center_x != location:
+                    player.center_x = location
             if move == 'right':
                 player.change_x = 5
             elif move == 'jump':
@@ -127,7 +136,7 @@ class Director(arcade.View):
             self.center_camera_to_player()
         else:
             info = self.new_gen()
-            for _ in range(2):
+            for _ in range(90):
                 try:
                     info.pop()
                 except:

@@ -6,9 +6,9 @@ class Collisions:
         self.players = sprites['players']
         self.enemies = sprites['enemies']
 
-        x = self.check_enemy_collision()
-        # return self._check_enemy_collision()
-        return x
+        dead_list = self.check_enemy_collision()
+        dead_list = self.check_fall(dead_list)
+        return dead_list
     
     def check_enemy_collision(self):
         dead = []
@@ -18,4 +18,12 @@ class Collisions:
                     moves, location = player.store_info()
                     self.players.remove(player)
                     dead.append((moves, location))
+        return dead
+    
+    def check_fall(self, dead):
+        for player in self.players:
+            if player.center_x < 50:
+                moves, location = player.store_info()
+                self.players.remove(player)
+                dead.append((moves, location))
         return dead
