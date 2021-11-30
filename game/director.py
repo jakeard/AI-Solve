@@ -32,7 +32,7 @@ class Director(arcade.View):
             self.sprites['players'].append(player)
 
         for i in range(0, 6401, 64):
-            if i not in range(500, 1150):  
+            if i not in range(500, 1150) and i not in range(4300, 4500):  
                 wall = Walls(i, 94)
                 self.sprites['walls'].append(wall)
         wall = Walls(600, 250)
