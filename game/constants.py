@@ -10,6 +10,7 @@ SPRITE_SCALING = 1
 PATH = os.path.dirname(os.path.abspath(__file__))
 
 # Asset Pathing
-PLAYER = os.path.join(PATH, '..', 'assets','kenney_assets', 'Characters', 'character_000')
-WALL = os.path.join(PATH, '..', 'images', 'tile_0006.png')
+WALL = os.path.join(PATH, '..', 'images', 'wall.png')
 ENEMY = os.path.join(PATH, '..', 'images', 'ghost.png')
+FLAG = os.path.join(PATH, '..', 'images', 'flag.png')
+WIN_SCREEN = os.path.join(PATH, '..', 'images', 'win.png')

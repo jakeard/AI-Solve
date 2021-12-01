@@ -21,6 +21,6 @@ Some tools that I used to make this game are:
 
 # Future Work
 
-* Create character animation
+* Create character animation and moving enemies
 * Make levels more difficult and add more levels
 * Use multiprocessing to make the program faster

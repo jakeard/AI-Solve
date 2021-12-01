@@ -4,7 +4,9 @@ from game.player import Player
 from game.walls import Walls
 from game.input import Input
 from game.enemy import Enemy
+from game.flag import Flag
 from game.collisions import Collisions
+from game.win import Win
 import random
 
 class Director(arcade.View):
@@ -13,10 +15,11 @@ class Director(arcade.View):
         self.sprites = {}
         self.sprites['players'] = None
         self.sprites['walls'] = None
+        self.sprites['enemies'] = None
+        self.sprites['flag'] = None
         self.input = Input()
         self.collisions = Collisions()
         self.physics_engines = []
-        self.sprites['enemies'] = None
         self.dead = []
         self.moves = []
         self.base = base
@@ -43,6 +46,9 @@ class Director(arcade.View):
         for i in range(1000, 6401, 1000):
             enemy = Enemy(i, 170)
             self.sprites['enemies'].append(enemy)
+
+        flag = Flag(6400, 150)
+        self.sprites['flag'].append(flag)
 
         for i in self.sprites['players']:
             self.physics_engines.append(arcade.PhysicsEnginePlatformer(i, gravity_constant=1, walls=self.sprites['walls']))
@@ -118,21 +124,26 @@ class Director(arcade.View):
         for i in self.physics_engines:
             i.update()
         info = self.collisions.execute(self.sprites)
-        if len(info) != 0:
-            for i in info:
-                self.dead.append(i)
-        if len(self.sprites['players']) != 0:
-            self.center_camera_to_player()
+        if info == True:
+            view = Win()
+            view.on_show()
+            self.window.show_view(view)
         else:
-            info = self.new_gen()
-            for _ in range(90):
-                try:
-                    info.pop()
-                except:
-                    pass
-            self.dead = []
-            self.__init__(info)
-            self.setup()
+            if len(info) != 0:
+                for i in info:
+                    self.dead.append(i)
+            if len(self.sprites['players']) != 0:
+                self.center_camera_to_player()
+            else:
+                info = self.new_gen()
+                for _ in range(90):
+                    try:
+                        info.pop()
+                    except:
+                        pass
+                self.dead = []
+                self.__init__(info)
+                self.setup()
 
     def new_gen(self):
         self.dead.sort(key=lambda x:x[1])
