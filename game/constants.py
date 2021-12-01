@@ -1,5 +1,6 @@
 import os
 
+# constants used for the game
 SCREEN_WIDTH = 1216
 SCREEN_HEIGHT = 768
 SCREEN_TITLE = "Solve Level"

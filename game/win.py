@@ -2,6 +2,7 @@ import arcade
 from game import constants
 
 class Win(arcade.View):
+    # win class to set the view to the win screen when a player has won
     def __init__(self):
         super().__init__()
     
