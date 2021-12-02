@@ -95,15 +95,7 @@ class Director(arcade.View):
             elif move == 'jump':
                 if self.physics_engines[id].can_jump():
                     player.change_y = 13
-                    num = random.randint(1, 2)
-                    if num == 1:
-                        player.change_x = 5
-                    elif num == 2:
-                        num = random.randint(1, 3)
-                        if num != 1:
-                            player.change_x = -5
-            elif move == 'left':
-                player.change_x = -5
+                    player.change_x = 5
             if len(self.moves) == 0:
                 move = None
     
